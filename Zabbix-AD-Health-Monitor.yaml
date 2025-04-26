@@ -7,6 +7,13 @@ zabbix_export:
     - uuid: 6358c94afe6a489a99459659521a5152
       template: 'Active Directory Health Monitor'
       name: 'Active Directory Health Monitor'
+      description: |
+        Monitors and alerts on Active Directory event logs and performance monitors.
+
+        Updates, discussion, and details can be found at the ActiveDirectoryKC GitHub repo: https://github.com/ActiveDirectoryKC/Zabbix-AD-Health-Monitors.
+      vendor:
+        name: ActiveDirectoryKC
+        version: 0.9.0-Beta
       groups:
         - name: Templates/Applications
       items:
@@ -22,7 +29,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: b422ce9dbbe445928b24676995ab2311
-              expression: 'logseverity(/Active Directory Health Monitors/eventlog[Active Directory Web Services,,"Warning|Error"]) > 1 and nodata(/Active Directory Health Monitors/eventlog[Active Directory Web Services,,"Warning|Error"],1800s)=0'
+              expression: 'logseverity(/Active Directory Health Monitor/eventlog[Active Directory Web Services,,"Warning|Error"]) > 1 and nodata(/Active Directory Health Monitor/eventlog[Active Directory Web Services,,"Warning|Error"],1800s)=0'
               name: 'Active Directory Web Services Error on {HOST.NAME}'
               priority: INFO
         - uuid: b191adb6d1034628abd905c16581299b
@@ -37,7 +44,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: ad151c2359584175b43ad77ded468b82
-              expression: 'logseverity(/Active Directory Health Monitors/eventlog[DFS Replication,,"Warning|Error"])>1 and nodata(/Active Directory Health Monitors/eventlog[DFS Replication,,"Warning|Error"],1800s)=0'
+              expression: 'logseverity(/Active Directory Health Monitor/eventlog[DFS Replication,,"Warning|Error"])>1 and nodata(/Active Directory Health Monitor/eventlog[DFS Replication,,"Warning|Error"],1800s)=0'
               name: 'ADDS: DFS Replication Events Error on {HOST.NAME}'
               priority: INFO
         - uuid: 076987cf923c43789427c56545e87658
@@ -52,7 +59,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 02dedf05c9e146fdb77a34c68c05d1d0
-              expression: 'logseverity(/Active Directory Health Monitors/eventlog[Directory Service,,"Warning|Error"])>1 and nodata(/Active Directory Health Monitors/eventlog[Directory Service,,"Warning|Error"],1800s)=0'
+              expression: 'logseverity(/Active Directory Health Monitor/eventlog[Directory Service,,"Warning|Error"])>1 and nodata(/Active Directory Health Monitor/eventlog[Directory Service,,"Warning|Error"],1800s)=0'
               name: 'ADDS: Directory Service Events Error on {HOST.NAME}'
               priority: INFO
         - uuid: d2b0f64a155e4b01a8aeb6d0179f1b73
@@ -67,7 +74,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 82edade2287345e4b50c74a699bb6068
-              expression: 'logseverity(/Active Directory Health Monitors/eventlog[DNS Server,,"Warning|Error"])>1 and nodata(/Active Directory Health Monitors/eventlog[DNS Server,,"Warning|Error"],1800s)=0'
+              expression: 'logseverity(/Active Directory Health Monitor/eventlog[DNS Server,,"Warning|Error"])>1 and nodata(/Active Directory Health Monitor/eventlog[DNS Server,,"Warning|Error"],1800s)=0'
               name: 'ADDS: DNS Server Events Error on {HOST.NAME}'
               priority: INFO
         - uuid: 2b35c5de516b4a6b999ff408c321365d
@@ -82,8 +89,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: a9c0314ff0d64e17951ecb069f03c0b6
-              expression: 'max(/Active Directory Health Monitors/net.tcp.service[ldap],#3)=0'
-              name: 'ADDS: LDAP Service Port Down'
+              expression: 'max(/Active Directory Health Monitor/net.tcp.service[ldap],#3)=0'
+              name: 'ADDS: LDAP Service Port Down on host {HOST.NAME}'
               priority: AVERAGE
         - uuid: 0d4e6b234b9e43dbb3cc35df22cb9eac
           name: 'ADDS: NTDS Logical Disk Avg Disk Read /sec'
@@ -112,8 +119,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: b159eb8346fa434d914416814ad4474a
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Database(*)\I/O Database Reads/sec"],15m)>10'
-              name: 'ADDS: NTDS Database I/O Reads /sec > 10 on {HOST.HOST}'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Database(*)\I/O Database Reads/sec"],15m)>10'
+              name: 'ADDS: NTDS Database I/O Reads /sec > 10 on host {HOST.NAME}'
               priority: WARNING
               description: |
                 Exceeding these thresholds is not bad in the short term (5 to 15 minutes a few times a day), however a system running sustained with these sorts of statistics is not fully caching the database and may be over taxed and should be investigated.
@@ -138,7 +145,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 7c3adaeb49d542328dbdf1ba11472877
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Database(*)\I/O Database Reads Average Latency"],5m)>15'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Database(*)\I/O Database Reads Average Latency"],5m)>15'
               name: 'ADDS: I/O Database Reads Average Latency > 15ms on {HOST.NAME}'
               priority: WARNING
         - uuid: 15160535d8d14acb86a40bad2c08649b
@@ -173,8 +180,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 2e9af237fd0b4274b8f26f7fa3e40891
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Database(*)\I/O Database Writes Average Latency"],5m)>10'
-              name: 'ADDS: I/O Database Writes Average Latency > 10ms on {HOST.NAME}'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Database(*)\I/O Database Writes Average Latency"],5m)>10'
+              name: 'ADDS: I/O Database Writes Average Latency > 10ms on host {HOST.NAME}'
               priority: WARNING
         - uuid: 384b6b1e019242feab864a72d2fdd223
           name: 'ADDS: NTDS Database I/O Database Log Reads /sec'
@@ -223,8 +230,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 7778adfe3edd41caa4d917950b946116
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Database(*)\I/O Log Writes Average Latency"],5m)>10'
-              name: 'ADDS: I/O Log Writes Average Latency > 10ms on {HOST.NAME}'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Database(*)\I/O Log Writes Average Latency"],5m)>10'
+              name: 'ADDS: I/O Log Writes Average Latency > 10ms on host {HOST.NAME}'
               priority: WARNING
         - uuid: 4a1bbff16263444e84ead36bf693018f
           name: 'ADDS: NTDS Database Log Byte Writes /sec'
@@ -302,7 +309,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 47d0b328ef6249e99bbdf373242afe32
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Database ==> Databases(lsass/NTDSA)\I/O Database Reads Average Latency"],15m)>15'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Database ==> Databases(lsass/NTDSA)\I/O Database Reads Average Latency"],15m)>15'
               name: 'ADDS: Database I/O Reads Average Latency > 15ms on {HOST.NAME}'
               priority: WARNING
               description: |
@@ -343,7 +350,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 9ac66930d9364ddab64f5ba5bbf49dff
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Database ==> Databases(lsass/NTDSA)\I/O Database Writes Average Latency"],15m)>15'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Database ==> Databases(lsass/NTDSA)\I/O Database Writes Average Latency"],15m)>15'
               name: 'ADDS: Database I/O Writes Average Latency > 15ms on {HOST.NAME}'
               priority: WARNING
               description: 'AD Database I/O Writes latency greater than 15ms. This could indicate disk, hardware, or other performance-related issues.'
@@ -379,8 +386,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 7fd4cb597a344432bb378753fc4dd37e
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Database ==> Instances(lsass/NTDSA)\I/O Log Reads Average Latency"],15m)>15'
-              name: 'ADDS: Database I/O Log Reads Average Latency > 15ms on {HOST.NAME}'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Database ==> Instances(lsass/NTDSA)\I/O Log Reads Average Latency"],15m)>15'
+              name: 'ADDS: Database I/O Log Reads Average Latency > 15ms on {HOST.HOST}'
               priority: WARNING
               description: 'AD Database I/O Reads latency greater than 15ms. This could indicate disk, hardware, or other performance-related issues.'
         - uuid: ae3edc826a584b7f9fdf8d6826c50bc3
@@ -415,8 +422,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: e5b528dbb9094edaad68cdda517f2cdb
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Database ==> Instances(lsass/NTDSA)\I/O Log Writes Average Latency"],15m) > 10'
-              name: 'ADDS: Database I/O Log Writes Average Latency > 10ms on {HOST.NAME'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Database ==> Instances(lsass/NTDSA)\I/O Log Writes Average Latency"],15m) > 10'
+              name: 'ADDS: Database I/O Log Writes Average Latency > 10ms on host {HOST.NAME}'
               priority: WARNING
               description: |
                 AD Database I/O LOG Write Average latency greater than 10ms. This could indicate disk, hardware, or other performance-related issues.
@@ -683,8 +690,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 20902a7ba9c24dfb915b6aff332f0b19
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\ATQ Estimated Queue Delay"],5m) >= {$ADDS.LDAP.ATQ_QUEUE_DELAY_WARN_THRESHOLD}'
-              name: 'ADDS: ATQ Queue Delay Elevated'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\ATQ Estimated Queue Delay"],5m) >= {$ADDS.LDAP.ATQ_QUEUE_DELAY_WARN_THRESHOLD}'
+              name: 'ADDS: ATQ Queue Delay Elevated on host {HOST.NAME}'
               priority: WARNING
               description: |
                 ATQ Queue Delay being elevated is an indication that the DCs may be exhausting available ATQ threads.
@@ -703,8 +710,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 2752ebbf0ce347548fd52d00a6a7d207
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\ATQ Outstanding Queued Requests"],5m) >= {$ADDS.LDAP.ATQ_OUTSTANDING_REQS_WARN_THRESHOLD}'
-              name: 'ADDS: ATQ Outstanding Queued Requests Elevated'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\ATQ Outstanding Queued Requests"],5m) >= {$ADDS.LDAP.ATQ_OUTSTANDING_REQS_WARN_THRESHOLD}'
+              name: 'ADDS: ATQ Outstanding Queued Requests Elevated on host {HOST.NAME}'
               priority: WARNING
               description: |
                 ATQ Outstanding Queued Requests being elevated is an indication that the DCs may be exhausting available ATQ threads.
@@ -736,8 +743,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 04254b63a3034df0b0f0820a77ed6e07
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\ATQ Request Latency"],5m) >= {$ADDS.LDAP.ATQ_REQ_LATENCY_WARN_THRESHOLD}'
-              name: 'ADDS: ATQ Request Latency Elevated'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\ATQ Request Latency"],5m) >= {$ADDS.LDAP.ATQ_REQ_LATENCY_WARN_THRESHOLD}'
+              name: 'ADDS: ATQ Request Latency Elevated on host {HOST.NAME}'
               priority: WARNING
               description: |
                 ATQ Request Latency being elevated is an indication that the DCs may be exhausting available ATQ threads.
@@ -795,13 +802,13 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: fe51340dc3a847bba797416c958d34b0
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\DRA Pending Replication Synchronizations"],15)>{$ADDS.DRA.MAX_PENDING_REPL_OPS}'
-              name: 'ADDS: Pending ADDS Replication (DRA) Replication Operations > {$ADDS.DRA.MAX_PENDING_REPL_OPS} on host {HOST.HOST}'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\DRA Pending Replication Synchronizations"],15)>{$ADDS.DRA.MAX_PENDING_REPL_OPS}'
+              name: 'ADDS: Pending ADDS Replication (DRA) Replication Operations > {$ADDS.DRA.MAX_PENDING_REPL_OPS} on host {HOST.NAME}'
               priority: AVERAGE
               description: 'Total number of pending Active Directory Replication (DRA) operations exceeds the configured value (default 50) for the period (default 15 minutes). This could indicate a replica DC is unavailable or offline.'
             - uuid: 5dc450c8e1244f558bc2a20a47e9017e
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\DRA Pending Replication Synchronizations"],15)>{$ADDS.DRA.MAX_PENDING_REPL_SYNC}'
-              name: 'ADDS: Pending ADDS Replication (DRA) Replication Synchronizations > {$ADDS.DRA.MAX_PENDING_REPL_SYNC} on host {HOST.HOST}'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\DRA Pending Replication Synchronizations"],15)>{$ADDS.DRA.MAX_PENDING_REPL_SYNC}'
+              name: 'ADDS: Pending ADDS Replication (DRA) Replication Synchronizations > {$ADDS.DRA.MAX_PENDING_REPL_SYNC} on host {HOST.NAME}'
               priority: AVERAGE
               description: 'Total number of pending Active Directory Replication (DRA) synchronizations exceeds the configured value (default 50) for the period (default 15 minutes). This could indicate a replica DC is unavailable or offline.'
         - uuid: 658c63ac1128478d933ac56e9e0c1fae
@@ -887,7 +894,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 0150fce1a915449d86f75b1b8b7a47dd
-              expression: 'last(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\Fatal events since boot"]) > 0'
+              expression: 'last(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\Fatal events since boot"]) > 0'
               name: 'ADDS: DS Fatal Events since boot > 0 on {HOST.NAME}'
               priority: AVERAGE
               description: 'Directory Services event log on host has generated fatal errors since last boot. This could indicate system issues.'
@@ -1075,7 +1082,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: ac6ed29c942849c8820a11f8bbca35b3
-              expression: 'last(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\RID Pool request failures since boot"])>0'
+              expression: 'last(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\RID Pool request failures since boot"])>0'
               name: 'ADDS: RID Pool Request Failures > 0 on {HOST.NAME}'
               priority: HIGH
               description: 'Domain Controller failed to request RID pool data from RID master. This could indicate connectivity or accessibility issues with the RID FSMO role holder.'
@@ -1225,8 +1232,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: a15789c7c4024d92aee786569eede1fc
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(NTDS)\DRA Sync Failures on Schema Mismatch"],15)> 5'
-              name: 'ADDS: Replication (DRA) Total Sync Failures on Schema Mismatch > 5 on host {HOST.HOST}'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(NTDS)\DRA Sync Failures on Schema Mismatch"],15)> 5'
+              name: 'ADDS: Replication (DRA) Total Sync Failures on Schema Mismatch > 5 on host {HOST.NAME}'
               priority: WARNING
               description: 'Total number of Active Directory Replication (DRA) Sync Failures on Schema Mismatch exceeds 5. This could indicate various performance issues including failed schema updates.'
         - uuid: 83161f2624d44f84b68519b5c18a71c7
@@ -1242,8 +1249,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: d8d4caca554c455089e971748de053c7
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(NTDS)\DRA total number of Busy failures since boot"],15)> 5'
-              name: 'ADDS: Replication (DRA) Total Number of Busy Failures Since Boot > 15 on host {HOST.HOST}'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(NTDS)\DRA total number of Busy failures since boot"],15)> 5'
+              name: 'ADDS: Replication (DRA) Total Number of Busy Failures Since Boot > 15 on host {HOST.NAME}'
               priority: WARNING
               description: 'Total number of Active Directory Replication (DRA) Busy Failures since boot exceeds 15. This could indicate an underlying replication issue or DC availability issue.'
         - uuid: 33a8796cd86e42b88045f11de1f951e0
@@ -1259,7 +1266,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 8277a12df3f949ddbb355e692ebb822c
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(NTDS)\DRA total number of MissingParent failures since boot"],15)> 5'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(NTDS)\DRA total number of MissingParent failures since boot"],15)> 5'
               name: 'ADDS: Replication (DRA) Total Number of MissingParent Failures Since Boot > 15 on host {HOST.HOST}'
               priority: WARNING
               description: 'Total number of Active Directory Replication (DRA) MissingParent Failures since boot exceeds 15. This could indicate an underlying replication issue or DC availability issue.'
@@ -1276,7 +1283,7 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: c80da0d2d3f440bfbcddf407266a174d
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(NTDS)\DRA total number of NotEnoughAttrs/MissingObject failures since boot"],15)> 5'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(NTDS)\DRA total number of NotEnoughAttrs/MissingObject failures since boot"],15)> 5'
               name: 'ADDS: Replication (DRA) Total Number of NotEnoughAttrs/MissingObject Failures Since Boot > 15 on host {HOST.HOST}'
               priority: WARNING
               description: 'Total number of Active Directory Replication (DRA) NotEnoughAttrs/MissingObject Failures since boot exceeds 15. This could indicate an underlying replication issue or DC availability issue.'
@@ -1350,8 +1357,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: f3cd6493ad714378b21327d096b22f0b
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Netlogon(*)\Average Semaphore Hold Time"],60m)>1'
-              name: 'ADDS: Netlogon Average Semaphore Hold Time > 1 second'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Netlogon(*)\Average Semaphore Hold Time"],60m)>1'
+              name: 'ADDS: Netlogon Average Semaphore Hold Time > 1 second on host {HOST.NAME}'
               priority: WARNING
               description: 'A server operating in excess of these thresholds will still work, but you need to validate your applications are working as intended before you start seeing performance issues as user demand increases. If the applications are okay, then you should start evaluating hardware upgrades or other configuration changes.'
               manual_close: 'YES'
@@ -1377,8 +1384,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 9025f4bfae7b4b7bb134596ca0a8edbb
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Netlogon(*)\Semaphore Timeouts"],60m) > 0'
-              name: 'ADDS: Netlogon Semaphore Timeouts Greater Than 0'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Netlogon(*)\Semaphore Timeouts"],60m) > 0'
+              name: 'ADDS: Netlogon Semaphore Timeouts Greater Than 0 on host {HOST.NAME}'
               priority: AVERAGE
               description: 'Any value above 0 indicates authentication timeouts are occurring.'
         - uuid: ec78e66324f24e8d91ce1d9a04f54aa1
@@ -1394,8 +1401,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: cd16c63284bc49959b1d926552af4a5d
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\Netlogon(*)\Semaphore Waiters"],60m)>0'
-              name: 'ADDS: Netlogon Semaphore Writers Greater Than 0'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\Netlogon(*)\Semaphore Waiters"],60m)>0'
+              name: 'ADDS: Netlogon Semaphore Writers Greater Than 0 on host {HOST.NAME}'
               priority: WARNING
               description: 'Values above 0 in conjunction with Semaphore Holders being less than the configured MCA setting typically indicates the bottleneck is located at another level of the authentication chain.'
         - uuid: 978ef0dd873c473a90864cadca1258a5
@@ -1411,8 +1418,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: 422d0d3be99d46faa63bccde20c5d6e3
-              expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\Netlogon(_Total)\Semaphore Holders"],60m) >= {$ADDS.NTLM.MAXCONCURRENTAPI}'
-              name: 'ADDS: Netlogon Semaphore Holders Greater Than {$WINDOWS.NTLM.MAXCONCURRENTAPI}'
+              expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\Netlogon(_Total)\Semaphore Holders"],60m) >= {$ADDS.NTLM.MAXCONCURRENTAPI}'
+              name: 'ADDS: Netlogon Semaphore Holders Greater Than {$WINDOWS.NTLM.MAXCONCURRENTAPI} on host {HOST.NAME}'
               priority: WARNING
               description: 'If the value is equal to the currently configured MCA setting, then you are using all available threads for authentication and a bottleneck could be at this level.'
         - uuid: 9edd6b4796db4455b72f0a37db96e71b
@@ -1522,8 +1529,8 @@ zabbix_export:
               value: ms-activedirectory
           triggers:
             - uuid: f2d7b545392748d797c7ff55e1f05897
-              expression: 'min(/Active Directory Health Monitors/perf_counter_en["\Windows Time Service\Computed Time Offset"],5m) > 100000000'
-              name: 'ADDS: DC Time Offset from Source is > 1 minute'
+              expression: 'min(/Active Directory Health Monitor/perf_counter_en["\Windows Time Service\Computed Time Offset"],5m) > 100000000'
+              name: 'ADDS: DC Time Offset from Source is > 1 minute on host {HOST.NAME}'
               priority: AVERAGE
               description: 'The absolute time offset between the system clock and the chosen time source, as computed by the W32Time service in microseconds. When a new valid sample is available, the computed time is updated with the time offset indicated by the sample. This time is the actual time offset of the local clock. W32Time initiates clock correction by using this offset and updates the computed time in between samples with the remaining time offset that needs to be applied to the local clock. Clock accuracy can be tracked by using this performance counter with a low polling interval (for example, 256 seconds or less) and looking for the counter value to be smaller than the desired clock accuracy limit.'
         - uuid: 01739973de194a18945a80e329914eea
@@ -1553,7 +1560,7 @@ zabbix_export:
           value_type: TEXT
           description: 'Path to the directory services NTDS.DIT file.'
         - uuid: f076a12f7e2b4c6bb245b11e3bad5598
-          name: 'ADDS: "DFSR" (DFS Replication) State'
+          name: 'ADDS: "DFSR" (DFS Replication) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[DFSR,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1563,7 +1570,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: 4d1cde4082864660be4a2fbc4ffda519
-          name: 'ADDS: "DNS" (DNS Server) State'
+          name: 'ADDS: "DNS" (DNS Server) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[DNS,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1573,7 +1580,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: 4e8ffb50fcf24ecf8935f7c0046d6048
-          name: 'ADDS: "Dnscache" (DNS Client State'
+          name: 'ADDS: "Dnscache" (DNS Client) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[Dnscache,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1583,7 +1590,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: 46a27401eaf642ea9b26bad75b15c21d
-          name: 'ADDS: "IsmServ" (Intersite Messaging) State'
+          name: 'ADDS: "IsmServ" (Intersite Messaging) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[IsmServ,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1593,7 +1600,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: 4c01e9ca3c17442fac49b367a745d50a
-          name: 'ADDS: "Kdc" (Kerberos Key Distribution Center) State'
+          name: 'ADDS: "Kdc" (Kerberos Key Distribution Center) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[Kdc,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1605,7 +1612,7 @@ zabbix_export:
             - tag: target
               value: domain-controller
         - uuid: 44c287d53a614552a495cdfbef5e4971
-          name: 'ADDS: "LanmanServer" (Server) State'
+          name: 'ADDS: "LanmanServer" (Server) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[LanmanServer,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1615,7 +1622,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: f27ac471c72b4892b11cebeeccd0536f
-          name: 'ADDS: "LanmanWorkstation" (Workstation) State'
+          name: 'ADDS: "LanmanWorkstation" (Workstation) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[LanmanWorkstation,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1625,7 +1632,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: 3d804b412d4b4fd8953a21f791af3ccf
-          name: 'ADDS: "Netlogon" (Netlogon) State'
+          name: 'ADDS: "Netlogon" (Netlogon) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[Netlogon,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1635,7 +1642,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: 05cdcdfb5584406f8605f3043a7d5045
-          name: 'ADDS: "RpcSs" (Remote Procedure Call (RPC) State'
+          name: 'ADDS: "RpcSs" (Remote Procedure Call (RPC) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[RpcSs,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1645,7 +1652,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: 0af3bb318d4243718b08a78c924d802a
-          name: 'ADDS: "SamSs" (Security Accounts Manager) State'
+          name: 'ADDS: "SamSs" (Security Accounts Manager) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[SamSs,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1655,7 +1662,7 @@ zabbix_export:
             - tag: component
               value: ms-activedirectory
         - uuid: d17d8ea2f4fb4c2696edc16dc93f5901
-          name: 'ADDS: "W32Time" (Windows Time) State'
+          name: 'ADDS: "W32Time" (Windows Time) Service State'
           type: ZABBIX_ACTIVE
           key: 'service.info[W32Time,state]'
           delay: '5m;5m/1-7,06:00-19:00;30m/1-7,00:00-06:00;30m/1-7,19:00-23:59'
@@ -1686,6 +1693,8 @@ zabbix_export:
           value: ms-activedirectory
         - tag: target
           value: windows
+        - tag: version
+          value: 0.9.0-Beta
       macros:
         - macro: '{$ADDS.DRA.MAX_PENDING_REPL_OPS}'
           value: '50'
@@ -1695,27 +1704,28 @@ zabbix_export:
           description: 'Specify the number of Replication (DRA) pending replication synchronizations before triggering an alert. Default is 50.'
         - macro: '{$ADDS.LDAP.ATQ_OUTSTANDING_REQS_WARN_THRESHOLD}'
           value: '10'
-          description: 'Specify the warning threshold for ATQ Outstanding Queue Requests.'
+          description: 'Specify the warning threshold for ATQ Outstanding Queue Requests.Ideally this is as low as possible. Default is 5.'
         - macro: '{$ADDS.LDAP.ATQ_QUEUE_DELAY_WARN_THRESHOLD}'
           value: '5'
-          description: 'Specify the warning threshold for ATQ Estimated Queue Delay.'
+          description: 'Specify the warning threshold for ATQ Estimated Queue Delay.Ideally this is as low as possible.  Ideally this is as low as possible. Default is 5.'
         - macro: '{$ADDS.LDAP.ATQ_REQ_LATENCY_WARN_THRESHOLD}'
           value: '5'
-          description: 'Specify the warning threshold for ATQ Request Latency.'
+          description: 'Specify the warning threshold for ATQ Request Latency. Ideally this is as low as possible. Default is 5.'
         - macro: '{$ADDS.LDAP.ATQ_USE_WARN_THRESHOLD}'
           value: '0.65'
-          description: 'Specify the warning threshold for ATQ thread usage.'
+          description: 'Specify the warning threshold for ATQ thread usage. If all the threads are consumed AD cannot process authentications on that server. Defaults to 0.65 (65%).'
         - macro: '{$ADDS.LDAP.MAXPOOLTHREADS}'
           value: '4'
-          description: 'Manual entry for the LDAP Query for MaxPoolThreads used in ATQ calculations.'
+          description: 'Manual entry for the LDAP Query for MaxPoolThreads. This value is used to determine the maximum ATQ threads ($MaxPoolThreads * $CPU_Cores). Default in Windows is 4.'
         - macro: '{$ADDS.NTDS.DB_PATH}'
           value: 'registry.data["HKLM\SYSTEM\CurrentControlSet\Services\NTDS\Parameters","DSA Database file"]'
+          description: 'NTDS Database path. The volume is specified on AD DS installation, found in the registry.'
         - macro: '{$ADDS.NTDS.LOG_NAME}'
           value: edb.log
-          description: 'Name of the NTDS log. Combines with NTDS Log Path value.'
+          description: 'Name of the NTDS log. Combines with NTDS Log Path value. This value is standard in all AD installs. Do not ever delete thsi file!'
         - macro: '{$ADDS.NTLM.MAXCONCURRENTAPI}'
           value: '15'
-          description: 'Manual entry for MaxConcurrentAPI used for NTLM Authentication. Server 2012+ is 15. If you change this in the registry, it needs changed here.'
+          description: 'Manual entry for MaxConcurrentAPI used for NTLM Authentication. Server 2012+ is 15. If you change this in the registry, it needs changed here.a'
       valuemaps:
         - uuid: 35f1059330bd426a9bfbe9e8430a67b8
           name: 'Win32_NetworkAdapter::AdapterTypeId'
@@ -1823,16 +1833,16 @@ zabbix_export:
               newvalue: Up
   triggers:
     - uuid: dcf667d4b1134434b8786bd39dec5677
-      expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\ATQ Threads Total"],15m) >= last(/Active Directory Health Monitors/WindowsATQThreadsMax)'
-      name: 'ADDS: ATQ Thread Exhaustion'
+      expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\ATQ Threads Total"],15m) >= last(/Active Directory Health Monitor/WindowsATQThreadsMax)'
+      name: 'ADDS: ATQ Thread Exhaustion on host {HOST.NAME}'
       priority: DISASTER
       description: |
         Total number of ATQ threads exhausted. DC may be unable to process incoming workloads and authentications.
 
         https://techcommunity.microsoft.com/t5/ask-the-directory-services-team/understanding-atq-performance-counters-yet-another-twist-in-the/ba-p/400293
     - uuid: 70d7d78243eb4f749276326994c191d0
-      expression: 'avg(/Active Directory Health Monitors/perf_counter_en["\DirectoryServices(*)\ATQ Threads Total"],15) / last(/Active Directory Health Monitors/WindowsATQThreadsMax) >= {$ADDS.LDAP.ATQ_USE_WARN_THRESHOLD}'
-      name: 'ADDS: ATQ Thread Usage High'
+      expression: 'avg(/Active Directory Health Monitor/perf_counter_en["\DirectoryServices(*)\ATQ Threads Total"],15) / last(/Active Directory Health Monitor/WindowsATQThreadsMax) >= {$ADDS.LDAP.ATQ_USE_WARN_THRESHOLD}'
+      name: 'ADDS: ATQ Thread Usage High on host {HOST.NAME}'
       priority: HIGH
       description: |
         Total number of ATQ threads nearing exhaustion. DC may soon be unable to process incoming workloads and authentications.
@@ -1845,38 +1855,38 @@ zabbix_export:
         - drawtype: BOLD_LINE
           color: 00FFFF
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\DirectoryServices(*)\ATQ Threads Total"]'
         - sortorder: '1'
           color: FFBF00
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\DirectoryServices(*)\ATQ Threads LDAP"]'
         - sortorder: '2'
           color: FF0000
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\DirectoryServices(*)\ATQ Threads Other"]'
     - uuid: cf2e2b57668f46fa94ed9899ff93801d
-      name: 'AD DS Authentications'
+      name: 'ADDS Authentications'
       ymin_type_1: FIXED
       graph_items:
         - color: 199C0D
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Security System-Wide Statistics\Digest Authentications"]'
         - sortorder: '1'
           color: 0040FF
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Security System-Wide Statistics\Kerberos Authentications"]'
         - sortorder: '2'
           color: FF8000
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Security System-Wide Statistics\NTLM Authentications"]'
     - uuid: 9489b023bfba496198dae41ae9d75d06
       name: 'ADDS LDAP Statistics'
@@ -1885,21 +1895,21 @@ zabbix_export:
         - color: 1A7C11
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\DirectoryServices(*)\LDAP Client Sessions"]'
         - sortorder: '1'
           color: F63100
           yaxisside: RIGHT
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\DirectoryServices(*)\LDAP Searches/sec"]'
         - sortorder: '2'
           color: 2774A4
           yaxisside: RIGHT
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\DirectoryServices(*)\LDAP Writes/sec"]'
     - uuid: 12e74856f39c4df19352d570f2ab45a0
       name: 'LSASS Processor Time'
@@ -1908,7 +1918,7 @@ zabbix_export:
         - color: 199C0D
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en[\Process(lsass)\% Processor Time]'
     - uuid: af9acf5f337e4055bc70185fb3dc3fec
       name: 'NTDS Database ==> Instances Statistics'
@@ -1918,36 +1928,36 @@ zabbix_export:
           yaxisside: RIGHT
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Database(*)\I/O Database Reads/sec"]'
         - sortorder: '1'
           color: F63100
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Database(*)\I/O Database Writes/sec"]'
         - sortorder: '2'
           color: 2774A4
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Database(*)\I/O Log Reads/sec"]'
         - sortorder: '3'
           color: F7941D
           yaxisside: RIGHT
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Database(*)\I/O Log Writes/sec"]'
         - sortorder: '4'
           color: FC6EA3
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Database(*)\I/O Database Reads Average Latency"]'
         - sortorder: '5'
           color: 6C59DC
           calc_fnc: ALL
           item:
-            host: 'Active Directory Health Monitors'
+            host: 'Active Directory Health Monitor'
             key: 'perf_counter_en["\Database(*)\I/O Database Writes Average Latency"]'
