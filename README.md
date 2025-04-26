@@ -4,6 +4,11 @@ A Zabbix Template for Monitoring Active Directory. Based on pre-existing Zabbix 
 ## Work In Progress
 I have not run this in a production envioronment yet and only run this in lab environments. Please review before use and tune accordingly. Some items may not work, work too well, or have incorrect information. Please submit an issue for anything that you find that doesn't match up. 
 
+**Known Issues/Items to Add**
+- Not currently doing specific detects against the disk storing NTDS and alerting.
+- Registry Macros may not work consistently.
+- Some Active checks aren't grabbing data yet. (They should have ** in front). 
+
 # Detailed Overview
 - Items
   - ADDS: "DFSR" (DFS Replication) Service State
