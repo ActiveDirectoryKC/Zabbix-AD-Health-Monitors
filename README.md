@@ -1,6 +1,18 @@
 # Zabbix-AD-Health-Monitors [BETA]
 A Zabbix Template for Monitoring Active Directory. Based on pre-existing Zabbix Templates and other best practices I've pulled together. 
 
+## Setup Instructions
+> NOTE: It is recommended to include the Windows OS template on any targets of this template as that covers more of the os-specific settings.
+1. Download the template from this repository.
+2. Log into Zabbix as an administrative user.
+3. Navigate to Data Collection. Click "Templates".
+4. In the Templates window, click "Import" in the top right corner.
+5. Navigate to the template you downloaded above.
+6. Click Import.
+7. Verify the template imported correctly.
+8. Next you can locate hosts manually or use discovery actions to target the domain controllers.
+  - TBD - Steps on how to do this will be added at a later date.  
+
 ## Work In Progress
 I have not run this in a production envioronment yet and only run this in lab environments. Please review before use and tune accordingly. Some items may not work, work too well, or have incorrect information. Please submit an issue for anything that you find that doesn't match up. 
 
