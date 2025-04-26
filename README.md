@@ -1,2 +1,221 @@
-# Zabbix-AD-Health-Monitors
-A Zabbix Template for Monitoring Active Directory
+# Zabbix-AD-Health-Monitors [BETA]
+A Zabbix Template for Monitoring Active Directory. Based on pre-existing Zabbix Templates and other best practices I've pulled together. 
+
+## Work In Progress
+I have not run this in a production envioronment yet and only run this in lab environments. Please review before use and tune accordingly. Some items may not work, work too well, or have incorrect information. Please submit an issue for anything that you find that doesn't match up. 
+
+# Detailed Overview
+- Items
+  - ADDS: "DFSR" (DFS Replication) Service State
+  - ADDS: "DNS" (DNS Server) Service State
+  - ADDS: "Dnscache" (DNS Client) Service State
+  - ADDS: "IsmSrv" (Intersite Messaging) Service State
+  - ADDS: "Kdc" (Kerberos Key Distribution Center) Service State
+  - ADDS: "LanmanServer" (Server) Service State
+  - ADDS: "LanmanWorkstation" (Workstation) Service State
+  - ADDS: "Netlogon" (Netlogon) Service State
+  - ADDS: "RpcSs" (Remote Procedure Call) Service State
+  - ADDS: "SamSs" (Security Accounts Manager) Service State
+  - ADDS: "W32Time" (Windows Time) Service State
+  - ADDS: Active Directory Web Services Events
+  - ADDS: ATQ Estimated Queue Delay
+  - ADDS: ATQ Outstanding Queued Requests
+  - ADDS: ATQ Queue Latency
+  - ADDS: ATQ QUeue Threads Max
+  - ADDS: ATQ Request Latency
+  - ADDS: ATQ Threads LDAP
+  - ADDS: ATQ Threads Other
+  - ADDS: ATQ Threads Total
+  - ADDS: DC Locator Cache Hits /sec
+  - ADDS: DC Locator Cache Misses /sec
+  - ADDS: DC Locator Client DS Query Failures /sec
+  - ADDS: DC Locator Client Mailslot Pings/sec
+  - ADDS: DC Locator Client Rejected requests /sec
+  - ADDS: DC Locator Client Requests Avg Failure Latency (sec)
+  - ADDS: DC Locator Client Requests Avg Success Latency (sec)
+  - ADDS: DC Locator Client Requests Failures /sec
+  - ADDS: DC Locator Client Requests Successes /sec
+  - ADDS: DC Locator Client Requests Total Active Requests
+  - ADDS: DC Locator Server Avg Mailslot Ping Latency (sec)
+  - ADDS: DC Locator Server Avg UDP LDAP Ping Latency (sec)
+  - ADDS: DC Locator Server Mailslot Pings /sec
+  - ADDS: DC Locator Server UDP LDAP Pings /sec
+  - ADDS: DFS Namespace API Requests Avg Response Time (sec)
+  - ADDS: DFS Namespace API Requests Failed
+  - ADDS: DFS Namespace Referrals Avg Response Time (sec)
+  - ADDS: DFS Namespace Referrals Requests /sec
+  - ADDS: DFS Namespace Referrals Requests Failed
+  - ADDS: DFS Replication Events
+  - ADDS: DFS Replication Total Bytes Received
+  - ADDS: Digest Authentications /sec
+  - ADDS: Directory Service Events
+  - ADDS: Directory Services Error Events Since Boot
+  - ADDS: Directory Services Fatal Event Logs Entries Since Boot
+  - ADDS: DNS Server Events
+  - ADDS: DNS Total Dropped DNS Queries /sec
+  - ADDS: DNS Total Queries Received /sec
+  - ADDS: DNS Total Recursive Queries /sec
+  - ADDS: DS Directory Reads/sec
+  - ADDS: DS Directory Searches/sec
+  - ADDS: DS Directory Writes/sec
+  - ADDS: DS Notify Queue Size
+  - ADDS: DS Threads in Use
+  - ADDS: KDC Proxy Failed Requests
+  - ADDS: KDC Proxy Incoming Requests
+  - ADDS: Kerberos Authentications /sec
+  - ADDS: LDAP Active Threads
+  - ADDS: LDAP Bind Time
+  - ADDS: LDAP Client Sessions
+  - ADDS: LDAP Port is running
+  - ADDS: LDAP Searches /sec
+  - ADDS: LDAP Successful Binds /sec
+  - ADDS: LDAP Writes /sec
+  - ADDS: LSASS % Processor Time
+  - ADDS: LSASS Attached I/O Database Average Reads Latency
+  - ADDS: LSASS Attached I/O Database Average Writes Latency
+  - ADDS: LSASS Attached I/O Database Reads /sec
+  - ADDS: LSASS Attached I/O Database Writes /sec
+  - ADDS: LSASS Instance Database I/O Log Read Average Latency
+  - ADDS: LSASS Instance Database I/O Log Writes Average Latency
+  - ADDS: LSASS Instance Database Log Writes /sec
+  - ADDS: LSASS Instance I/O Database Log Reads /sec
+  - ADDS: LSASS Instance I/O Database Log Writes /sec
+  - ADDS: Netlogon Average Semaphore Hold Time
+  - ADDS: Netlogon Semaphore Acquires
+  - ADDS: Netlogon Semaphore Holders
+  - ADDS: Netlogon Semaphore Timeouts
+  - ADDS: Netlogon Semaphore Waiters
+  - ADDS: NTDS Database I/O Database Log Reads /sec
+  - ADDS: NTDS Database I/O Database Log Writes /sec
+  - ADDS: NTDS Database I/O Database Reads /sec
+  - ADDS: NTDS Database I/O Database Writes /sec
+  - ADDS: NTDS Database I/O Log Writes Average Latency
+  - ADDS: NTDS Database Log Byte Writes /sec
+  - ADDS: NTDS Database Log Threads Waiting
+  - ADDS: NTDS Database Log Writes /sec
+  - **ADDS: NTDS DB Path
+  - ADDS: NTDS I/O Database Reads Average Latency
+  - ADDS: NTDS I/O Database Writes Average Latency
+  - ADDS: NTDS LDAP Busy Retires /sec
+  - ADDS: NTDS LDAP Outbound Bytes /sec
+  - ADDS: NTDS LDAP Returned /sec
+  - ADDS: NTDS Logical Disk Avg Disk Read /sec
+  - **ADDS: NTDS Log Path
+  - ADDS: NTDS Objects Visited /sec
+  - ADDS: NTDS PDC Failed Password Update Notifications
+  - ADDS: NTDS PDC Password Update Notifications /sec
+  - ADDS: NTDS RID Pool Invalidations Since Boot
+  - ADDS: NTDS RID Pool Request Failures Since Boot
+  - ADDS: NTDS RID Pool Requests Since Boot
+  - ADDS: NTDS SAM Global Group Membership Evaluations /sec
+  - ADDS: NTDS SAM Global Universal Membership Evaluations /sec
+  - ADDS: NTLM Authentications /sec
+  - ADDS: Replication (DRA) Inbound Bytes Total /sec
+  - ADDS: Replication (DRA) Inbound Object Updates Remaining in Packet /sec
+  - ADDS: Replication (DRA) Pending Replication Operations
+  - ADDS: Replication (DRA) Pending Replication Synchronizations
+  - ADDS: Replication (DRA) Total Inbound Objects /sec
+  - ADDS: Replication (DRA) Total Number of Busy Failures Since Boot
+  - ADDS: Replication (DRA) Total Number of MissingParent Failures Since Boot
+  - ADDS: Replication (DRA) Total Number of NC replication calls since last boot
+  - ADDS: Replication (DRA) Total Number of NotEnoughAttrs/MissingObject Failures Since Boot
+  - ADDS: Replication (DRA) Total Outbound Bytes /sec
+  - ADDS: Replication (DRA) Total Sync Failures on Schema Mismatch
+  - ADDS: SAM Enumerations/sec
+  - ADDS: SAM GC Evaluations/sec
+  - ADDS: SMB Server Session Avg Data Queue Length
+  - ADDS: SMB Server Session Avg Read /sec
+  - ADDS: SMB Server Session Avg Read Queue Length
+  - ADDS: SMB Server Session Avg Write Queue Length
+  - ADDS: SMB Server Session Current Data Queue Length
+  - ADDS: SMB Server Session Write Bytes/sec
+  - ADDS: Windows Time Computed Time Offset
+- Triggers
+  - ADDS: ATQ Thread Exhaustion on host {HOST.NAME}
+    - Severity: Disaster
+  - ADDS: RID Pool Request Failures > 0 on {HOST.NAME}
+    - Severity: High
+  - ADDS: ATQ Thread Usage High on host {HOST.NAME}
+    - Severity: High
+  - ADDS: Netlogon Semaphore Timeouts Greater Than 0 on host {HOST.NAME}
+      - Severity: Average
+  - ADDS: LDAP Service Port Down on host {HOST.NAME}
+     - Severity: Average
+  - ADDS: DS Fatal Events since boot > 0 on {HOST.NAME}
+     - Severity: Average
+  - ADDS: Pending ADDS Replication (DRA) Replication Operations > {$ADDS.DRA.MAX_PENDING_REPL_OPS} on host {HOST.NAME}
+    - Severity: Average
+  - ADDS: Pending ADDS Replication (DRA) Replication Synchronizations > {$ADDS.DRA.MAX_PENDING_REPL_SYNC} on host {HOST.NAME}
+    - Severity: Average
+  - ADDS: DC Time Offset from Source is > 1 minute on host {HOST.NAME}
+    - Severity: Average
+  - ADDS: Netlogon Semaphore Holders Greater Than {$WINDOWS.NTLM.MAXCONCURRENTAPI} on host {HOST.NAME}
+  - ADDS: I/O Database Writes Average Latency > 10ms on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: Netlogon Semaphore Writers Greater Than 0 on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: NTDS Database I/O Reads /sec > 10 on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: I/O Database Reads Average Latency > 15ms on {HOST.NAME}
+    - Severity: Warning
+  - ADDS: Netlogon Average Semaphore Hold Time > 1 second on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: Database I/O Log Writes Average Latency > 10ms on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: Replication (DRA) Total Number of NotEnoughAttrs/MissingObject Failures Since Boot > 15 on host {HOST.HOST}
+      - Severity: Warning
+  - ADDS: Database I/O Log Reads Average Latency > 15ms on {HOST.HOST}
+    - Severity: Warning
+  - ADDS: Replication (DRA) Total Number of MissingParent Failures Since Boot > 15 on host {HOST.HOST}
+      - Severity: Warning
+  - ADDS: Database I/O Writes Average Latency > 15ms on {HOST.NAME}
+    - Severity: Warning
+  - ADDS: Replication (DRA) Total Number of Busy Failures Since Boot > 15 on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: Database I/O Reads Average Latency > 15ms on {HOST.NAME}
+    - Severity: Warning
+  - ADDS: Replication (DRA) Total Sync Failures on Schema Mismatch > 5 on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: ATQ Request Latency Elevated on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: ATQ Outstanding Queued Requests Elevated on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: ATQ Queue Delay Elevated on host {HOST.NAME}
+    - Severity: Warning
+  - ADDS: I/O Log Writes Average Latency > 10ms on host {HOST.NAME}
+    - Severity: Information
+  - ADDS: Directory Service Events Error on {HOST.NAME}
+    - Severity: Information
+  - ADDS: DNS Server Events Error on {HOST.NAME}
+    - Severity: Information
+  - ADDS: DFS Replication Events Error on {HOST.NAME}
+    - Severity: Information
+  - Active Directory Web Services Error on {HOST.NAME}
+    - Severity: Information
+- Graphs
+  - ADDS ATQ Utilization
+    - Items Included
+      - Active Directory Health Monitors: ADDS: ATQ Threads Total
+      - Active Directory Health Monitors: ADDS: ATQ Threads LDAP
+      - Active Directory Health Monitors: ADDS: ATQ Threads Other
+  - ADDS Authetnications
+    - Items Included
+      - Active Directory Health Monitors: ADDS: Digest Authentications /sec
+      - Active Directory Health Monitors: ADDS: Kerberos Authentications /sec
+      - Active Directory Health Monitors: ADDS: NTLM Authentications /sec
+  - ADDS LDAP Statistics
+    - Items Included
+      - Active Directory Health Monitors: ADDS: LDAP Client Sessions
+      - Active Directory Health Monitors: ADDS: LDAP Searches /sec
+      - Active Directory Health Monitors: ADDS: LDAP Writes /sec 	
+  - LSASS Processor Time
+    - Items Included
+      - Active Directory Health Monitors: ADDS: LSASS % Processor Time 	
+  - NTDS Database ==> Instances Statistics
+    - Items Included
+      - Active Directory Health Monitors: ADDS: NTDS Database I/O Database Reads /sec
+      - Active Directory Health Monitors: ADDS: NTDS Database I/O Database Writes /sec
+      - Active Directory Health Monitors: ADDS: NTDS Database I/O Database Log Reads /sec
+      - Active Directory Health Monitors: ADDS: NTDS Database I/O Database Log Writes /sec
+      - Active Directory Health Monitors: ADDS: NTDS I/O Database Reads Average Latency
+      - Active Directory Health Monitors: ADDS: NTDS I/O Database Writes Average Latency
